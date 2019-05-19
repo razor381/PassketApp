@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Text, View, StyleSheet, AppRegistry, TextInput, TouchableOpacity} from "react-native";
+import {Actions} from 'react-native-router-flux';
 
 export default class SignupForm extends Component {
 	render() {
