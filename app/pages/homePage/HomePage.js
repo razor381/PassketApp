@@ -1,24 +1,33 @@
 import React, {Component} from "react";
 import {AppRegistry, Text,View,StyleSheet, StatusBar, TouchableOpacity} from "react-native";
 import {Actions} from 'react-native-router-flux';
+import {Container} from 'native-base';
 
-import PassketLogo from "../../components/logo/PassketLogo"
-import LoginForm from "../../components/LoginForm";
+import PassketLogo from "../../components/logo/PassketLogo";
+import AppHeader from "../../components/AppHeader";
+import AppBody from "../../components/AppBody";
+import AppFooter from "../../components/AppFooter";
 
 export default class HomePage extends Component {
 
-	getData() {
+	constructor () {
+		super();
+		this.state = {
+			data:[]
+		}
+	}
 
+	getData() {
 		return fetch('https://facebook.github.io/react-native/movies.json')
 			.then((response) => response.json())
 			.then((responseJson) => {
-				alert(responseJson.title);
+				this.setState({data:responseJson});
+				// alert(responseJson.title);
 			})
 			.catch((error) => {
 				console.error(error);
 			}
 		);
-
 	}
 
 	componentDidMount() {
@@ -27,16 +36,11 @@ export default class HomePage extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<StatusBar 
-					backgroundColor="#520C0C"
-					barStyle="light-content"
-				/>
-				<PassketLogo />
-				<View style={styles.signupTextArea}>
-					<Text>This is homepage</Text>
-				</View>
-			</View>
+				<Container>
+					<AppHeader />
+					<AppBody data={this.state.data} />
+					<AppFooter />
+				</Container>
 		);
 	}
 }
